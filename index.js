@@ -27,11 +27,11 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
- * 
+ * counter1 has a function in the closure and returns a function to be called
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ * counter1, it has a function defined inthe return call
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ *counter1 would be useful in a situation that you need to specify what to return in the function case by case, counter2 is good for the specific funtion
 */
 
 // counter1 code
@@ -55,10 +55,10 @@ function counter2() {
 /* Task 2: inning() 
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
+console.log(inning());
+function inning(){
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
+    return Math.floor(Math.random() * (2 - 0 + 1));
 
 }
 
@@ -76,12 +76,17 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(callbackOne,innings) {
+  var away = 0;
+  var home = 0;
+  var fullGame = [{}];
+  for (i = 0; i < innings; i++) {
+    home = home+callbackOne();
+    away = away+callbackOne();
+  }
+  return "" + home + " " + away
 }
-
+console.log(finalScore(inning, 9));
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
@@ -101,10 +106,27 @@ and returns the score at each pont in the game, like so:
 8th inning: awayTeam - homeTeam
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
-
-
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function getInningScore(callbackOne, innings) {
+  let scores = [];
+  for(let i = 0; i < innings; i++) {
+    scores.push({home: callbackOne(), away: callbackOne()});
+  }
+  return scores;
 }
 
 
+
+function scoreboard(callbackOne, callbackTwo, innings) {
+  const scores = callbackOne(callbackTwo, innings);
+  console.log(scores);
+  var homeTotal = 0;
+  var awayTotal = 0;
+  for (i = 0; i < innings; i++) {
+    homeTotal = homeTotal+scores[i].home;
+    awayTotal = awayTotal+scores[i].away;
+    console.log(`Inning: ${i+1}: ${scores[i].away} - ${scores[i].home}`);
+  }
+  console.log(`Final Score: ${awayTotal} - ${homeTotal}`)
+}
+
+scoreboard(getInningScore, inning, 9);

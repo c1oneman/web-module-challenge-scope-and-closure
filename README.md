@@ -63,8 +63,17 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+A closure is used with combined functions to serve multipe functions to create one return
+
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+The name is the same but it could change the dice roll because the funtion runs each time.
+
 c. What is the lexical scope of `newRoll`? 
+
+newRoll is only contained within the function
 
 ### Task 2c - Exit Ticket
 
